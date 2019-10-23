@@ -98,6 +98,21 @@ def assign_grade(github, title, grade):
 
     print(f"Sucessfully added Student: {github} New Project: {title} Grade: {grade}")
 
+def add_a_project(title,description,max_grade):
+
+    QUERY = """
+        INSERT INTO projects (title, description, max_grade)
+        VALUES (:title, :description, :max_grade)
+        """
+
+    db.session.execute(QUERY, {'title':title,
+                               'description':description,
+                               'max_grade':max_grade})
+
+    db.session.commit()
+
+    print(f"Successfully added a new project")
+
 def handle_input():
     """Main loop.
 
@@ -129,7 +144,7 @@ def handle_input():
 if __name__ == "__main__":
     connect_to_db(app)
 
-    handle_input()
+    # handle_input()
 
     # To be tidy, we close our database connection -- though,
     # since this is where our program ends, we'd quit anyway.
